@@ -38,4 +38,26 @@ public class ItensPorQuantidade {
 
         return qtdVendida;
     }
+
+    public static int retornaQuantidadeItem(String item){
+        int qtd = 0;
+        switch (item){
+            case "pao":
+                qtd = pao;
+                break;
+            case "torta":
+                qtd = torta;
+                break;
+            case "sanduiche":
+                qtd = sanduiche;
+                break;
+            case "leite":
+                qtd = leite;
+                break;
+            case "cafe":
+                qtd = cafe;
+                break;
+        }
+        return qtd;
+    }
 }

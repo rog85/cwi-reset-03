@@ -18,6 +18,7 @@ public class Registradora {
                 if ("pao".equals(item) || "sanduiche".equals(item) || "torta".equals(item)) {
                     if (!DataProjeto.cozinhaEmFuncionamento()) {
                         System.out.println("Cozinha fechada!");
+                        System.out.println("Produto: " + item + " - Em Estoque: " + ItensPorQuantidade.retornaQuantidadeItem(item));
                         break;
                     }else{
                         ReposicaoCozinha.reporItem(item);
