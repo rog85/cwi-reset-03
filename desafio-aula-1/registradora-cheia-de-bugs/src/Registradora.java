@@ -2,17 +2,12 @@
 public class Registradora {
 
     public static void main(String[] args) {
-         primeiroBug();
-
-         segundoBug();
-
-         terceiroBug();
-
-          quartoBug();
-
-//        quintoBug();
-//
-//        sextoBug();
+            primeiroBug();
+            segundoBug();
+            terceiroBug();
+            quartoBug();
+            quintoBug();
+            sextoBug();
     }
 
     private static double registrarItem(String item, int quantidade) {
@@ -117,5 +112,4 @@ public class Registradora {
         System.out.println(String.format("Valor total: %.2f", precoTotal2));
         System.out.println(String.format("---"));
     }
-
 }

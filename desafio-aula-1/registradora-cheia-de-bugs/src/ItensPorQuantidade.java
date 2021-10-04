@@ -8,42 +8,51 @@ public class ItensPorQuantidade {
 
 
     public static int calcularQuantidadeVendida(String item, int quantidade) {
-        int qtdVendida = quantidade;
+        int qtdVendida = 0;
         switch (item){
             case "pao":
-                pao -= quantidade;
-                if(pao < 0){
-                    qtdVendida = quantidade + pao;
-                    pao = 0;
+                if(pao < quantidade * 60){
+                    qtdVendida = pao / 60;
+                } else{
+                    qtdVendida = quantidade;
                 }
+                pao -= qtdVendida * 60;
                 break;
+
             case "torta":
-                torta -= quantidade;
-                if(torta < 0){
-                    qtdVendida = quantidade + torta;
-                    torta = 0;
+                if(torta < quantidade){
+                    qtdVendida = torta;
+                } else{
+                    qtdVendida = quantidade;
                 }
+                torta -= qtdVendida;
                 break;
+
             case "sanduiche":
-                sanduiche -= quantidade;
-                if(sanduiche < 0){
-                    qtdVendida = quantidade + sanduiche;
-                    sanduiche = 0;
+                if(sanduiche < quantidade){
+                    qtdVendida = sanduiche;
+                } else{
+                    qtdVendida = quantidade;
                 }
+                sanduiche -= qtdVendida;
                 break;
+
             case "leite":
-                leite -= quantidade;
-                if(leite < 0){
-                    qtdVendida = quantidade + leite;
-                    leite = 0;
+                if(leite < quantidade){
+                    qtdVendida = leite;
+                } else{
+                    qtdVendida = quantidade;
                 }
+                leite -= qtdVendida;
                 break;
+
             case "cafe":
-                cafe -= quantidade;
-                if(cafe < 0){
-                    qtdVendida = quantidade + cafe;
-                    cafe = 0;
+                if(cafe < quantidade){
+                    qtdVendida = cafe;
+                } else{
+                    qtdVendida = quantidade;
                 }
+                cafe -= qtdVendida;
                 break;
         }
 
