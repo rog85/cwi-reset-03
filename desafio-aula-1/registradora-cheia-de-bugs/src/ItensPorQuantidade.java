@@ -11,47 +11,27 @@ public class ItensPorQuantidade {
         int qtdVendida = 0;
         switch (item){
             case "pao":
-                if(pao < quantidade * 60){
-                    qtdVendida = pao / 60;
-                } else{
-                    qtdVendida = quantidade;
-                }
+                qtdVendida = pao < quantidade * 60 ? pao / 60 : quantidade;
                 pao -= qtdVendida * 60;
                 break;
 
             case "torta":
-                if(torta < quantidade){
-                    qtdVendida = torta;
-                } else{
-                    qtdVendida = quantidade;
-                }
+                qtdVendida = Math.min(torta, quantidade);
                 torta -= qtdVendida;
                 break;
 
             case "sanduiche":
-                if(sanduiche < quantidade){
-                    qtdVendida = sanduiche;
-                } else{
-                    qtdVendida = quantidade;
-                }
+                qtdVendida = Math.min(sanduiche, quantidade);
                 sanduiche -= qtdVendida;
                 break;
 
             case "leite":
-                if(leite < quantidade){
-                    qtdVendida = leite;
-                } else{
-                    qtdVendida = quantidade;
-                }
+                qtdVendida = Math.min(leite, quantidade);
                 leite -= qtdVendida;
                 break;
 
             case "cafe":
-                if(cafe < quantidade){
-                    qtdVendida = cafe;
-                } else{
-                    qtdVendida = quantidade;
-                }
+                qtdVendida = Math.min(cafe, quantidade);
                 cafe -= qtdVendida;
                 break;
         }
