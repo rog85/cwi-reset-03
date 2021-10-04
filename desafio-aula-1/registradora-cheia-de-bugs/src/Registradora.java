@@ -11,20 +11,24 @@ public class Registradora {
     }
 
     private static double registrarItem(String item, int quantidade) {
-        int qtdVendida = ItensPorQuantidade.calcularQuantidadeVendida(item, quantidade);
-
-        if (QuantidadeMinimaItem.precisaReposicao(item)) {
-            if ("pao".equals(item) || "sanduiche".equals(item) || "torta".equals(item)) {
-                if (!DataProjeto.cozinhaEmFuncionamento()) {
-                    System.out.println("Cozinha fechada!");
-                }else{
-                    ReposicaoCozinha.reporItem(item);
+        int qtdVendida = 0;
+        while(qtdVendida < quantidade){
+            qtdVendida += ItensPorQuantidade.calcularQuantidadeVendida(item, quantidade - qtdVendida);
+            if (QuantidadeMinimaItem.precisaReposicao(item)) {
+                if ("pao".equals(item) || "sanduiche".equals(item) || "torta".equals(item)) {
+                    if (!DataProjeto.cozinhaEmFuncionamento()) {
+                        System.out.println("Cozinha fechada!");
+                        break;
+                    }else{
+                        ReposicaoCozinha.reporItem(item);
+                    }
+                }
+                if ("leite".equals(item) || "cafe".equals(item)) {
+                    ReposicaoFornecedor.reporItem(item);
                 }
             }
-            if ("leite".equals(item) || "cafe".equals(item)) {
-                ReposicaoFornecedor.reporItem(item);
-            }
         }
+
         double precoItem = RelacaoPesoPreco.retornaPrecoProduto(item, qtdVendida);
         return precoItem;
     }
