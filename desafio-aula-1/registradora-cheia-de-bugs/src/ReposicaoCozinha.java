@@ -6,7 +6,7 @@ public class ReposicaoCozinha {
             System.out.println(String.format("Solicitando mais pão!"));
         }
         if ("torta".equals(item)) {
-            ItensPorQuantidade.torta += 4;
+            ItensPorQuantidade.torta += 64;
             System.out.println(String.format("Solicitando mais torta!"));
         }
         if ("sanduiche".equals(item)) {
