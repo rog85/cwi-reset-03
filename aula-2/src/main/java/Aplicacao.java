@@ -6,6 +6,14 @@ public class Aplicacao {
 
         filme1.reproduzirFilme();
         filme2.reproduzirFilme();
+
+        //----------
+
+        Ator ator1 = new Ator("Ator", 21, 10, Genero.MASCULINO);
+        Ator ator2 = new Ator("Ator2", 22, 5, Genero.FEMININO);
+
+        ator1.Apresentacao();
+        ator2.Apresentacao();
     }
 
 }
