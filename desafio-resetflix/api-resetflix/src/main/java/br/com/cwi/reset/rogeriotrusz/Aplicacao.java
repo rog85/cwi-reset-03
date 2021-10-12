@@ -55,5 +55,18 @@ public class Aplicacao {
             System.out.println(e.getMessage());
         }*/
 
+        //teste 2.1.1
+        /*DiretorService diretorService = new DiretorService(fakeDatabase);
+        String nomeDiretor = "Rogerio Trusz";
+        LocalDate dataNasciDiretor = LocalDate.of(1985, 12, 1);
+        Integer anoAtividadeDiretor = 2000;
+
+        DiretorRequest diretorRequest = new DiretorRequest(nomeDiretor, dataNasciDiretor, anoAtividadeDiretor);
+        try {
+            diretorService.cadastrarDiretor(diretorRequest);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }*/
+
     }
 }

@@ -24,15 +24,15 @@ public class AtorService {
         if(nome == null || nome.isEmpty()){
             throw new CampoNaoInformadoException("nome");
         } else if(!nome.matches("^([A-z\\'\\.-ᶜ]*(\\s))+[A-z\\'\\.-ᶜ]*$")){
-            throw new NomeSobrenomeException();
+            throw new NomeSobrenomeException("ator");
         } else if(nomeJaExiste(nome)){
-            throw new NomeJaCadastradoException(nome);
+            throw new NomeJaCadastradoException("ator", nome);
         }
 
         if(dataNascimento == null){
             throw new CampoNaoInformadoException("dataNascimento");
         } else if(dataNascimento.isAfter(LocalDate.now())){
-            throw new DataNascimentoException();
+            throw new DataNascimentoException("atores");
         }
 
         if(statusCarreira == null){
@@ -42,7 +42,7 @@ public class AtorService {
         if(anoInicioAtividade == null){
             throw new CampoNaoInformadoException("anoInicioAtividade");
         } else if(anoInicioAtividade < dataNascimento.getYear()){
-            throw new InicioAtividadeException();
+            throw new InicioAtividadeException("ator");
         }
 
         id = proximoAtorId();

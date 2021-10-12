@@ -2,15 +2,13 @@ package br.com.cwi.reset.rogeriotrusz;
 
 import java.time.LocalDate;
 
-public class Diretor {
+public class DiretorRequest {
 
-    private Integer id;
     private String nome;
     private LocalDate dataNascimento;
     private Integer anoInicioAtividade;
 
-    public Diretor(Integer id, String nome, LocalDate dataNascimento, Integer anoInicioAtividade) {
-        this.id = id;
+    public DiretorRequest(String nome, LocalDate dataNascimento, Integer anoInicioAtividade) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.anoInicioAtividade = anoInicioAtividade;
@@ -18,5 +16,13 @@ public class Diretor {
 
     public String getNome() {
         return nome;
+    }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public Integer getAnoInicioAtividade() {
+        return anoInicioAtividade;
     }
 }
