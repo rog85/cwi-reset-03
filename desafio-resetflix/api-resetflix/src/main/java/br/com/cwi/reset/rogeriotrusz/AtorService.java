@@ -84,6 +84,25 @@ public class AtorService {
         return resultadoFiltrado;
     }
 
+    public Ator consultarAtor(Integer id) throws CampoNaoInformadoException, NenhumAtorIdEncontradoException {
+        if(id == null){
+            throw new CampoNaoInformadoException("id");
+        }
+        List<Ator> atores = fakeDatabase.recuperaAtores();
+        Ator resultado = null;
+        for (Ator a : atores){
+            if(a.getId() == id){
+                resultado = a;
+            }
+        }
+
+        if(resultado == null){
+            throw new NenhumAtorIdEncontradoException(id);
+        }
+
+        return resultado;
+    }
+
     private Integer proximoAtorId(){
         return fakeDatabase.recuperaAtores().size() + 1;
     }

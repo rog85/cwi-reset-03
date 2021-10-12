@@ -31,13 +31,21 @@ public class Aplicacao {
         System.out.println("Primeiro ator deve ser 'Will Smith', valor encontrado: " + atores.get(0).getNome());
 
         //teste 1.1.2
-        List<AtorEmAtividade> atoresEmAtividade = null;
+        /*List<AtorEmAtividade> atoresEmAtividade = null;
         try {
             atoresEmAtividade = atorService.listarAtoresEmAtividade();
         } catch (Exception e){
             System.out.println(e.getMessage());
-        }
+        }*/
 
+        //teste 1.1.3
+        /*Ator ator = null;
+        try {
+            ator = atorService.consultarAtor(1);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(ator.getNome());*/
 
     }
 }
