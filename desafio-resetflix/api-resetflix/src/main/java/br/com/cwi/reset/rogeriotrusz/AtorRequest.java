@@ -3,6 +3,7 @@ package br.com.cwi.reset.rogeriotrusz;
 import java.time.LocalDate;
 
 public class AtorRequest {
+
     private String nome;
     private LocalDate dataNascimento;
     private StatusCarreira statusCarreira;
@@ -13,5 +14,21 @@ public class AtorRequest {
         this.dataNascimento = dataNascimento;
         this.statusCarreira = statusCarreira;
         this.anoInicioAtividade = anoInicioAtividade;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public StatusCarreira getStatusCarreira() {
+        return statusCarreira;
+    }
+
+    public Integer getAnoInicioAtividade() {
+        return anoInicioAtividade;
     }
 }
