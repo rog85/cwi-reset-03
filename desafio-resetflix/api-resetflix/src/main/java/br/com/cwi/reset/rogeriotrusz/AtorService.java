@@ -103,6 +103,15 @@ public class AtorService {
         return resultado;
     }
 
+    public List<Ator> consultarAtores() throws NenhumAtorCadastradoException {
+        List<Ator> atores = fakeDatabase.recuperaAtores();
+        if(atores.size() < 1){
+            throw new NenhumAtorCadastradoException();
+        }
+
+        return atores;
+    }
+
     private Integer proximoAtorId(){
         return fakeDatabase.recuperaAtores().size() + 1;
     }

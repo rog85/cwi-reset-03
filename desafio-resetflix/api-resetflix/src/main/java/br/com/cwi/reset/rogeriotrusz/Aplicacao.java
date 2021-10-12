@@ -47,5 +47,13 @@ public class Aplicacao {
         }
         System.out.println(ator.getNome());*/
 
+        //teste 1.1.4
+        /*List<Ator> todosAtores = null;
+        try {
+             todosAtores = atorService.consultarAtores();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }*/
+
     }
 }
