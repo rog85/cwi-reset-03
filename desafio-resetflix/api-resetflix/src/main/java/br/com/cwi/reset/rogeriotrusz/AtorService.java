@@ -1,6 +1,7 @@
 package br.com.cwi.reset.rogeriotrusz;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AtorService {
@@ -47,6 +48,40 @@ public class AtorService {
         id = proximoAtorId();
         Ator ator = new Ator(id, nome, dataNascimento, statusCarreira, anoInicioAtividade);
         fakeDatabase.persisteAtor(ator);
+    }
+
+    public List<AtorEmAtividade> listarAtoresEmAtividade() throws NenhumAtorCadastradoException {
+        List<Ator> atores = fakeDatabase.recuperaAtores();
+        if(atores.size() < 1){
+            throw new NenhumAtorCadastradoException();
+        }
+
+        List<AtorEmAtividade> resultado = new ArrayList<>();
+        AtorEmAtividade atorAtividade = null;
+
+        for (Ator a : atores) {
+            if(a.getStatusCarreira().equals(StatusCarreira.EM_ATIVIDADE)){
+                atorAtividade = new AtorEmAtividade(a.getId(), a.getNome(), a.getDataNascimento());
+                resultado.add(atorAtividade);
+            }
+        }
+        return resultado;
+    }
+
+    public List<AtorEmAtividade> listarAtoresEmAtividade(String filtroNome) throws NenhumAtorFiltroException, NenhumAtorCadastradoException {
+        List<AtorEmAtividade> atoresEmAtividade = listarAtoresEmAtividade();
+        List<AtorEmAtividade> resultadoFiltrado = new ArrayList<>();
+
+        for(AtorEmAtividade a : atoresEmAtividade){
+            if(a.getNome().toLowerCase().contains(filtroNome.toLowerCase())){
+                resultadoFiltrado.add(a);
+            }
+        }
+
+        if(resultadoFiltrado.size() < 1){
+            throw new NenhumAtorFiltroException(filtroNome);
+        }
+        return resultadoFiltrado;
     }
 
     private Integer proximoAtorId(){
