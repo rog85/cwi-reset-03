@@ -50,10 +50,10 @@ public class AtorService {
         fakeDatabase.persisteAtor(ator);
     }
 
-    public List<AtorEmAtividade> listarAtoresEmAtividade() throws NenhumAtorCadastradoException {
+    public List<AtorEmAtividade> listarAtoresEmAtividade() throws CadastroNaoEncontradoException {
         List<Ator> atores = fakeDatabase.recuperaAtores();
         if(atores.size() < 1){
-            throw new NenhumAtorCadastradoException();
+            throw new CadastroNaoEncontradoException("ator");
         }
 
         List<AtorEmAtividade> resultado = new ArrayList<>();
@@ -68,7 +68,7 @@ public class AtorService {
         return resultado;
     }
 
-    public List<AtorEmAtividade> listarAtoresEmAtividade(String filtroNome) throws NenhumAtorFiltroException, NenhumAtorCadastradoException {
+    public List<AtorEmAtividade> listarAtoresEmAtividade(String filtroNome) throws FiltroNaoEncontradoException, CadastroNaoEncontradoException {
         List<AtorEmAtividade> atoresEmAtividade = listarAtoresEmAtividade();
         List<AtorEmAtividade> resultadoFiltrado = new ArrayList<>();
 
@@ -79,7 +79,7 @@ public class AtorService {
         }
 
         if(resultadoFiltrado.size() < 1){
-            throw new NenhumAtorFiltroException(filtroNome);
+            throw new FiltroNaoEncontradoException("Ator", filtroNome);
         }
         return resultadoFiltrado;
     }
@@ -103,10 +103,10 @@ public class AtorService {
         return resultado;
     }
 
-    public List<Ator> consultarAtores() throws NenhumAtorCadastradoException {
+    public List<Ator> consultarAtores() throws CadastroNaoEncontradoException {
         List<Ator> atores = fakeDatabase.recuperaAtores();
         if(atores.size() < 1){
-            throw new NenhumAtorCadastradoException();
+            throw new CadastroNaoEncontradoException("ator");
         }
 
         return atores;
