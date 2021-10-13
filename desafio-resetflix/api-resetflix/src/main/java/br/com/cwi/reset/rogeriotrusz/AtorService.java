@@ -24,15 +24,15 @@ public class AtorService {
         if(nome == null || nome.isEmpty()){
             throw new CampoNaoInformadoException("nome");
         } else if(!nome.matches("^([A-z\\'\\.-ᶜ]*(\\s))+[A-z\\'\\.-ᶜ]*$")){
-            throw new NomeCompostoException("ator");
+            throw new NomeCompostoException(NomeEntidade.ATOR);
         } else if(nomeJaExiste(nome)){
-            throw new NomeJaCadastradoException("ator", nome);
+            throw new NomeJaCadastradoException(NomeEntidade.ATOR, nome);
         }
 
         if(dataNascimento == null){
             throw new CampoNaoInformadoException("dataNascimento");
         } else if(dataNascimento.isAfter(LocalDate.now())){
-            throw new DataNascimentoException("atores");
+            throw new DataNascimentoException(NomeEntidade.ATOR);
         }
 
         if(statusCarreira == null){
@@ -42,7 +42,7 @@ public class AtorService {
         if(anoInicioAtividade == null){
             throw new CampoNaoInformadoException("anoInicioAtividade");
         } else if(anoInicioAtividade < dataNascimento.getYear()){
-            throw new AnoInvalidoException("ator");
+            throw new AnoInvalidoException(NomeEntidade.ATOR);
         }
 
         id = proximoAtorId();
@@ -53,7 +53,7 @@ public class AtorService {
     public List<AtorEmAtividade> listarAtoresEmAtividade() throws CadastroNaoEncontradoException {
         List<Ator> atores = fakeDatabase.recuperaAtores();
         if(atores.size() < 1){
-            throw new CadastroNaoEncontradoException("ator");
+            throw new CadastroNaoEncontradoException(NomeEntidade.ATOR);
         }
 
         List<AtorEmAtividade> resultado = new ArrayList<>();
@@ -79,7 +79,7 @@ public class AtorService {
         }
 
         if(resultadoFiltrado.size() < 1){
-            throw new FiltroNaoEncontradoException("Ator", filtroNome);
+            throw new FiltroNaoEncontradoException(NomeEntidade.ATOR, filtroNome);
         }
         return resultadoFiltrado;
     }
@@ -96,7 +96,7 @@ public class AtorService {
             }
         }
         if(resultado == null){
-            throw new IdNaoEncontradoException("ator", id);
+            throw new IdNaoEncontradoException(NomeEntidade.ATOR, id);
         }
         return resultado;
     }
@@ -104,7 +104,7 @@ public class AtorService {
     public List<Ator> consultarAtores() throws CadastroNaoEncontradoException {
         List<Ator> atores = fakeDatabase.recuperaAtores();
         if(atores.size() < 1){
-            throw new CadastroNaoEncontradoException("ator");
+            throw new CadastroNaoEncontradoException(NomeEntidade.ATOR);
         }
 
         return atores;

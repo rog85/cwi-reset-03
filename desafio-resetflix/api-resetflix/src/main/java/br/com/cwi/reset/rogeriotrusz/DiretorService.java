@@ -23,21 +23,21 @@ public class DiretorService {
         if(nome == null || nome.isEmpty()){
             throw new CampoNaoInformadoException("nome");
         } else if(!nome.matches("^([A-z\\'\\.-ᶜ]*(\\s))+[A-z\\'\\.-ᶜ]*$")){
-            throw new NomeCompostoException("diretor");
+            throw new NomeCompostoException(NomeEntidade.DIRETOR);
         } else if(nomeJaExiste(nome)){
-            throw new NomeJaCadastradoException("diretor", nome);
+            throw new NomeJaCadastradoException(NomeEntidade.DIRETOR, nome);
         }
 
         if(dataNascimento == null){
             throw new CampoNaoInformadoException("dataNascimento");
         } else if(dataNascimento.isAfter(LocalDate.now())){
-            throw new DataNascimentoException("diretores");
+            throw new DataNascimentoException(NomeEntidade.DIRETOR);
         }
 
         if(anoInicioAtividade == null){
             throw new CampoNaoInformadoException("anoInicioAtividade");
         } else if(anoInicioAtividade < dataNascimento.getYear()){
-            throw new AnoInvalidoException("diretor");
+            throw new AnoInvalidoException(NomeEntidade.DIRETOR);
         }
 
         id = proximoDiretorId();
@@ -48,7 +48,7 @@ public class DiretorService {
     public List<Diretor> listarDiretores() throws CadastroNaoEncontradoException {
         List<Diretor> diretores = fakeDatabase.recuperaDiretores();
         if(diretores.size() < 1){
-            throw new CadastroNaoEncontradoException("diretor");
+            throw new CadastroNaoEncontradoException(NomeEntidade.DIRETOR);
         }
         return diretores;
     }
@@ -64,7 +64,7 @@ public class DiretorService {
         }
 
         if(resultadoFiltrado.size() < 1){
-            throw new FiltroNaoEncontradoException("Diretor", filtroNome);
+            throw new FiltroNaoEncontradoException(NomeEntidade.DIRETOR, filtroNome);
         }
         return resultadoFiltrado;
     }
@@ -81,7 +81,7 @@ public class DiretorService {
             }
         }
         if(resultado == null){
-            throw new IdNaoEncontradoException("diretor", id);
+            throw new IdNaoEncontradoException(NomeEntidade.DIRETOR, id);
         }
         return resultado;
     }
