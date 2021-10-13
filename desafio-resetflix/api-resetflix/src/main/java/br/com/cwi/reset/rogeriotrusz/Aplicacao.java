@@ -72,8 +72,8 @@ public class Aplicacao {
         }
 
         //teste 2.1.2
-        List<Diretor> lista = null;
-        try {
+        //List<Diretor> lista = null;
+         /*try {
             lista = diretorService.listarDiretores();
         } catch (Exception e){
             System.out.println(e.getMessage());
@@ -81,7 +81,17 @@ public class Aplicacao {
 
         for (Diretor d : lista) {
             System.out.println(d.getNome());
+        }*/
+
+        //teste 2.1.3
+        Diretor diretor = null;
+        try {
+            diretor = diretorService.consultarDiretor(1);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
         }
+
+        System.out.println(diretor.getNome());
 
     }
 }

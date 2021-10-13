@@ -13,7 +13,7 @@ public class DiretorService {
     }
 
     public void cadastrarDiretor(DiretorRequest diretorRequest) throws CampoNaoInformadoException,
-            NomeSobrenomeException, NomeJaCadastradoException, DataNascimentoException, InicioAtividadeException {
+            NomeCompostoException, NomeJaCadastradoException, DataNascimentoException, AnoInvalidoException {
 
         Integer id = 0;
         String nome = diretorRequest.getNome();
@@ -23,7 +23,7 @@ public class DiretorService {
         if(nome == null || nome.isEmpty()){
             throw new CampoNaoInformadoException("nome");
         } else if(!nome.matches("^([A-z\\'\\.-ᶜ]*(\\s))+[A-z\\'\\.-ᶜ]*$")){
-            throw new NomeSobrenomeException("diretor");
+            throw new NomeCompostoException("diretor");
         } else if(nomeJaExiste(nome)){
             throw new NomeJaCadastradoException("diretor", nome);
         }
@@ -37,7 +37,7 @@ public class DiretorService {
         if(anoInicioAtividade == null){
             throw new CampoNaoInformadoException("anoInicioAtividade");
         } else if(anoInicioAtividade < dataNascimento.getYear()){
-            throw new InicioAtividadeException("diretor");
+            throw new AnoInvalidoException("diretor");
         }
 
         id = proximoDiretorId();
@@ -69,10 +69,22 @@ public class DiretorService {
         return resultadoFiltrado;
     }
 
-
-
-
-
+    public Diretor consultarDiretor(Integer id) throws CampoNaoInformadoException, IdNaoEncontradoException {
+        if(id == null){
+            throw new CampoNaoInformadoException("id");
+        }
+        List<Diretor> diretores = fakeDatabase.recuperaDiretores();
+        Diretor resultado = null;
+        for (Diretor d : diretores){
+            if(d.getId() == id){
+                resultado = d;
+            }
+        }
+        if(resultado == null){
+            throw new IdNaoEncontradoException("diretor", id);
+        }
+        return resultado;
+    }
 
     private Integer proximoDiretorId(){
         return fakeDatabase.recuperaDiretores().size() + 1;

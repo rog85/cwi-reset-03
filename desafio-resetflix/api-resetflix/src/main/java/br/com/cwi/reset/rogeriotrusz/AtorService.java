@@ -13,7 +13,7 @@ public class AtorService {
     }
 
     public void criarAtor(AtorRequest atorRequest) throws CampoNaoInformadoException,
-            NomeSobrenomeException, DataNascimentoException, InicioAtividadeException, NomeJaCadastradoException {
+            NomeCompostoException, DataNascimentoException, AnoInvalidoException, NomeJaCadastradoException {
 
         Integer id = 0;
         String nome = atorRequest.getNome();
@@ -24,7 +24,7 @@ public class AtorService {
         if(nome == null || nome.isEmpty()){
             throw new CampoNaoInformadoException("nome");
         } else if(!nome.matches("^([A-z\\'\\.-ᶜ]*(\\s))+[A-z\\'\\.-ᶜ]*$")){
-            throw new NomeSobrenomeException("ator");
+            throw new NomeCompostoException("ator");
         } else if(nomeJaExiste(nome)){
             throw new NomeJaCadastradoException("ator", nome);
         }
@@ -42,7 +42,7 @@ public class AtorService {
         if(anoInicioAtividade == null){
             throw new CampoNaoInformadoException("anoInicioAtividade");
         } else if(anoInicioAtividade < dataNascimento.getYear()){
-            throw new InicioAtividadeException("ator");
+            throw new AnoInvalidoException("ator");
         }
 
         id = proximoAtorId();
@@ -84,7 +84,7 @@ public class AtorService {
         return resultadoFiltrado;
     }
 
-    public Ator consultarAtor(Integer id) throws CampoNaoInformadoException, NenhumAtorIdEncontradoException {
+    public Ator consultarAtor(Integer id) throws CampoNaoInformadoException, IdNaoEncontradoException {
         if(id == null){
             throw new CampoNaoInformadoException("id");
         }
@@ -95,11 +95,9 @@ public class AtorService {
                 resultado = a;
             }
         }
-
         if(resultado == null){
-            throw new NenhumAtorIdEncontradoException(id);
+            throw new IdNaoEncontradoException("ator", id);
         }
-
         return resultado;
     }
 
