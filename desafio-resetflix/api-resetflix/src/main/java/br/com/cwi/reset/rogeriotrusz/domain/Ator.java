@@ -1,4 +1,6 @@
-package br.com.cwi.reset.rogeriotrusz;
+package br.com.cwi.reset.rogeriotrusz.domain;
+
+import br.com.cwi.reset.rogeriotrusz.enums.StatusCarreira;
 
 import java.time.LocalDate;
 

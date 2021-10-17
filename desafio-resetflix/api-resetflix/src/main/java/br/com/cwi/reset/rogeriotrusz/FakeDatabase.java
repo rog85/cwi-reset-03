@@ -1,5 +1,8 @@
 package br.com.cwi.reset.rogeriotrusz;
 
+import br.com.cwi.reset.rogeriotrusz.domain.Ator;
+import br.com.cwi.reset.rogeriotrusz.domain.Diretor;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,5 +1,11 @@
 package br.com.cwi.reset.rogeriotrusz;
 
+import br.com.cwi.reset.rogeriotrusz.domain.Ator;
+import br.com.cwi.reset.rogeriotrusz.domain.AtorEmAtividade;
+import br.com.cwi.reset.rogeriotrusz.enums.NomeEntidade;
+import br.com.cwi.reset.rogeriotrusz.enums.StatusCarreira;
+import br.com.cwi.reset.rogeriotrusz.exception.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

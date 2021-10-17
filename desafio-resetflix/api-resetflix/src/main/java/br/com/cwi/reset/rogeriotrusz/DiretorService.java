@@ -1,5 +1,9 @@
 package br.com.cwi.reset.rogeriotrusz;
 
+import br.com.cwi.reset.rogeriotrusz.domain.Diretor;
+import br.com.cwi.reset.rogeriotrusz.enums.NomeEntidade;
+import br.com.cwi.reset.rogeriotrusz.exception.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
