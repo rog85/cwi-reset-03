@@ -69,4 +69,12 @@ public class PersonagemService {
         return fakeDatabase.recuperaPersonagens().size() + 1;
     }
 
+    public void validaAtoresId(List<PersonagemRequest> personagens) throws CampoNaoInformadoException, IdNaoEncontradoException {
+        AtorService atorService = new AtorService(fakeDatabase);
+        Ator ator;
+        for (PersonagemRequest p : personagens){
+            ator = atorService.consultarAtor(p.getIdAtor());
+        }
+    }
+
 }

@@ -4,7 +4,8 @@ public enum NomeEntidade {
     ATOR("Ator", "Atores"),
     DIRETOR("Diretor", "Diretores"),
     ESTUDIO("Estúdio", "Estúdios"),
-    PERSONAGEM_ATOR("Personagem", "Personagens");
+    PERSONAGEM_ATOR("Personagem", "Personagens"),
+    FILME("Filme", "Filmes");
 
     private String nome;
     private String plural;

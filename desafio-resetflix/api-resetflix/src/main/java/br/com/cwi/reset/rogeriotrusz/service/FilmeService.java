@@ -2,13 +2,12 @@ package br.com.cwi.reset.rogeriotrusz.service;
 
 import br.com.cwi.reset.rogeriotrusz.FakeDatabase;
 import br.com.cwi.reset.rogeriotrusz.enums.Genero;
-import br.com.cwi.reset.rogeriotrusz.exception.AtorPersonagemDuplicadoException;
-import br.com.cwi.reset.rogeriotrusz.exception.CampoNaoInformadoException;
-import br.com.cwi.reset.rogeriotrusz.exception.GeneroDuplicadoException;
-import br.com.cwi.reset.rogeriotrusz.exception.IdNaoEncontradoException;
+import br.com.cwi.reset.rogeriotrusz.enums.NomeEntidade;
+import br.com.cwi.reset.rogeriotrusz.exception.*;
 import br.com.cwi.reset.rogeriotrusz.model.*;
 import br.com.cwi.reset.rogeriotrusz.request.FilmeRequest;
 import br.com.cwi.reset.rogeriotrusz.request.PersonagemRequest;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,17 +78,68 @@ public class FilmeService {
         }
 
         PersonagemService personagemService = new PersonagemService(fakeDatabase);
+
+        personagemService.validaAtoresId(personagens);
+
         List<PersonagemAtor> personagensAtores = new ArrayList<>();
         PersonagemAtor personagemAtor;
+
         for (PersonagemRequest p : personagens){
-            Integer id = personagemService.criarPersonagem(p);
-            personagemAtor = personagemService.consultarPersonagem(id);
+            Integer idPersonagem = personagemService.criarPersonagem(p);
+            personagemAtor = personagemService.consultarPersonagem(idPersonagem);
             personagensAtores.add(personagemAtor);
         }
 
         Integer id = proximoId();
         Filme filme = new Filme(id, nome, anoLancamento, capaFilme, generos, diretor, estudio, personagensAtores, resumo);
         fakeDatabase.persisteFilme(filme);
+    }
+
+    public List<Filme> consultarFilmes(String nomeFilme, String nomeDiretor,
+                                       String nomePersonagem, String nomeAtor) throws CadastroNaoEncontradoException, FilmeNaoEncontradoException {
+
+        List<Filme> filmes = fakeDatabase.recuperaFilmes();
+        if(filmes.isEmpty()){
+            throw new CadastroNaoEncontradoException(NomeEntidade.FILME);
+        }
+
+        List<Filme> resultado = new ArrayList<>();
+
+        if(nomeFilme != null && !nomeFilme.isEmpty()){
+            for (Filme f : filmes){
+                if(f.getNome().toLowerCase().contains(nomeFilme.toLowerCase()) && !resultado.contains(f)){
+                    resultado.add(f);
+                }
+            }
+        }
+
+        if(nomeDiretor != null && !nomeDiretor.isEmpty()){
+            for (Filme f : filmes){
+                if(f.getDiretor().getNome().toLowerCase().contains(nomeDiretor.toLowerCase()) && !resultado.contains(f)){
+                    resultado.add(f);
+                }
+            }
+        }
+
+        if(nomePersonagem != null && !nomePersonagem.isEmpty()){
+            for (Filme f : filmes){
+                List<PersonagemAtor> personagens = f.getPersonagens();
+                for (PersonagemAtor p : personagens){
+                    if(p.getNomePersonagem().toLowerCase().contains(nomePersonagem.toLowerCase()) && !resultado.contains(f)){
+                        resultado.add(f);
+                    }
+                    if(p.getAtor().getNome().toLowerCase().contains(nomeAtor.toLowerCase()) && !resultado.contains(f)){
+                        resultado.add(f);
+                    }
+                }
+            }
+        }
+
+        if(resultado.isEmpty()){
+            throw new FilmeNaoEncontradoException(nomeFilme, nomeDiretor, nomePersonagem, nomeAtor);
+        }
+
+        return resultado;
     }
 
     private Integer proximoId(){
@@ -99,7 +149,7 @@ public class FilmeService {
     private boolean existeResquestDuplicada(List<PersonagemRequest> personagens){
         PersonagemRequest requestAtual;
         PersonagemRequest proximoRequest;
-        for(int i = 0; i < personagens.size(); i++) {
+        for(int i = 0; i < personagens.size() - 1; i++) {
             requestAtual = personagens.get(i);
             for (int j = i + 1; j < personagens.size(); j++) {
                 proximoRequest = personagens.get(j);
