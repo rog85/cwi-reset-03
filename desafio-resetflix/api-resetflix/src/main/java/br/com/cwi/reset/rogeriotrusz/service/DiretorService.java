@@ -4,8 +4,8 @@ import br.com.cwi.reset.rogeriotrusz.FakeDatabase;
 import br.com.cwi.reset.rogeriotrusz.model.Diretor;
 import br.com.cwi.reset.rogeriotrusz.enums.NomeEntidade;
 import br.com.cwi.reset.rogeriotrusz.exception.*;
+import br.com.cwi.reset.rogeriotrusz.model.Estudio;
 import br.com.cwi.reset.rogeriotrusz.request.DiretorRequest;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,6 @@ public class DiretorService {
     public void cadastrarDiretor(DiretorRequest diretorRequest) throws CampoNaoInformadoException,
             NomeCompostoException, NomeJaCadastradoException, DataNascimentoException, AnoInvalidoException {
 
-        Integer id = 0;
         String nome = diretorRequest.getNome();
         LocalDate dataNascimento = diretorRequest.getDataNascimento();
         Integer anoInicioAtividade = diretorRequest.getAnoInicioAtividade();
@@ -46,13 +45,36 @@ public class DiretorService {
             throw new AnoInvalidoException(NomeEntidade.DIRETOR);
         }
 
-        id = proximoDiretorId();
+        Integer id = proximoId();
         Diretor diretor = new Diretor(id, nome, dataNascimento, anoInicioAtividade);
         fakeDatabase.persisteDiretor(diretor);
     }
 
-    public List<Diretor> listarDiretores(String filtroNome) throws FiltroNaoEncontradoException, CadastroNaoEncontradoException {
+    public List<Diretor> listarDiretores(String filtroNome)
+            throws FiltroNaoEncontradoException, CadastroNaoEncontradoException {
+
         List<Diretor> diretores = fakeDatabase.recuperaDiretores();
+        if(diretores.isEmpty()){
+            throw new CadastroNaoEncontradoException(NomeEntidade.DIRETOR);
+        }
+
+        List<Diretor> resultado = diretores;
+
+        if(filtroNome != null && !filtroNome.isEmpty()){
+            resultado = new ArrayList<>();
+            for(Diretor d : diretores){
+                if(d.getNome().toLowerCase().contains(filtroNome.toLowerCase())){
+                    resultado.add(d);
+                }
+            }
+        }
+
+        if(resultado.isEmpty()){
+            throw new FiltroNaoEncontradoException(NomeEntidade.DIRETOR, filtroNome);
+        }
+
+        return resultado;
+        /*List<Diretor> diretores = fakeDatabase.recuperaDiretores();
         if(diretores.isEmpty()){
             throw new CadastroNaoEncontradoException(NomeEntidade.DIRETOR);
         }
@@ -72,10 +94,12 @@ public class DiretorService {
         if(resultadoFiltrado.isEmpty()){
             throw new FiltroNaoEncontradoException(NomeEntidade.DIRETOR, filtroNome);
         }
-        return resultadoFiltrado;
+        return resultadoFiltrado;*/
     }
 
-    public Diretor consultarDiretor(Integer id) throws CampoNaoInformadoException, IdNaoEncontradoException {
+    public Diretor consultarDiretor(Integer id)
+            throws CampoNaoInformadoException, IdNaoEncontradoException {
+
         if(id == null){
             throw new CampoNaoInformadoException("id");
         }
@@ -92,7 +116,7 @@ public class DiretorService {
         return resultado;
     }
 
-    private Integer proximoDiretorId(){
+    private Integer proximoId(){
         return fakeDatabase.recuperaDiretores().size() + 1;
     }
 

@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class NomeJaCadastradoException extends Exception{
     public NomeJaCadastradoException(NomeEntidade entidade, String nome) {
         super(String.format("Já existe um %s cadastrado para o nome '%s'.",
-                entidade.getNome().toLowerCase(), nome));
+                entidade.getNome(true).toLowerCase(), nome));
     }
 }

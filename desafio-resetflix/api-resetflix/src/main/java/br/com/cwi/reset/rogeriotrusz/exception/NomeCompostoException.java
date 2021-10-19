@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class NomeCompostoException extends Exception{
     public NomeCompostoException(NomeEntidade entidade) {
         super(String.format("Deve ser informado no mínimo nome e sobrenome para o %s.",
-                entidade.getNome().toLowerCase()));
+                entidade.getNome(true).toLowerCase()));
     }
 }

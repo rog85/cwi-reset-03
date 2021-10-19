@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class DataNascimentoException extends Exception{
     public DataNascimentoException(NomeEntidade entidade) {
         super(String.format("Não é possível cadastrar %s não nascidos.",
-                entidade.getNome().toLowerCase().concat("es")));
+                entidade.getNome(false).toLowerCase()));
     }
 }

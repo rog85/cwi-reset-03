@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class CadastroNaoEncontradoException extends Exception{
     public CadastroNaoEncontradoException(NomeEntidade entidade) {
         super(String.format("Nenhum %s cadastrado, favor cadastar %s.",
-                entidade.getNome().toLowerCase(), entidade.getNome().toLowerCase().concat("es")));
+                entidade.getNome(true).toLowerCase(), entidade.getNome(false).toLowerCase()));
     }
 }

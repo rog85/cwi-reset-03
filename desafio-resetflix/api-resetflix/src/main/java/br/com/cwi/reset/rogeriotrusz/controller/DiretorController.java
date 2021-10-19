@@ -1,9 +1,7 @@
 package br.com.cwi.reset.rogeriotrusz.controller;
 
 import br.com.cwi.reset.rogeriotrusz.FakeDatabase;
-import br.com.cwi.reset.rogeriotrusz.model.Ator;
 import br.com.cwi.reset.rogeriotrusz.model.Diretor;
-import br.com.cwi.reset.rogeriotrusz.request.AtorRequest;
 import br.com.cwi.reset.rogeriotrusz.request.DiretorRequest;
 import br.com.cwi.reset.rogeriotrusz.service.DiretorService;
 import org.springframework.http.HttpStatus;

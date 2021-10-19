@@ -22,7 +22,6 @@ public class AtorService {
     public void criarAtor(AtorRequest atorRequest) throws CampoNaoInformadoException,
             NomeCompostoException, DataNascimentoException, AnoInvalidoException, NomeJaCadastradoException {
 
-        Integer id = 0;
         String nome = atorRequest.getNome();
         LocalDate dataNascimento = atorRequest.getDataNascimento();
         StatusCarreira statusCarreira = atorRequest.getStatusCarreira();
@@ -32,7 +31,7 @@ public class AtorService {
             throw new CampoNaoInformadoException("nome");
         } else if(!nome.matches("^([A-z\\'\\.-ᶜ]*(\\s))+[A-z\\'\\.-ᶜ]*$")){
             throw new NomeCompostoException(NomeEntidade.ATOR);
-        } else if(nomeJaExiste(nome)){
+        } else if(nomeExiste(nome)){
             throw new NomeJaCadastradoException(NomeEntidade.ATOR, nome);
         }
 
@@ -52,12 +51,14 @@ public class AtorService {
             throw new AnoInvalidoException(NomeEntidade.ATOR);
         }
 
-        id = proximoAtorId();
+        Integer id = proximoId();
         Ator ator = new Ator(id, nome, dataNascimento, statusCarreira, anoInicioAtividade);
         fakeDatabase.persisteAtor(ator);
     }
 
-    public List<AtorEmAtividade> listarAtoresEmAtividade(String filtroNome) throws FiltroNaoEncontradoException, CadastroNaoEncontradoException {
+    public List<AtorEmAtividade> listarAtoresEmAtividade(String filtroNome)
+            throws FiltroNaoEncontradoException, CadastroNaoEncontradoException {
+
         List<Ator> atores = fakeDatabase.recuperaAtores();
         if(atores.isEmpty()){
             throw new CadastroNaoEncontradoException(NomeEntidade.ATOR);
@@ -73,25 +74,19 @@ public class AtorService {
             }
         }
 
-        if(filtroNome == null || filtroNome.isEmpty()){
-            return atoresEmAtividade;
+        if(filtroNome != null && !filtroNome.isEmpty()){
+            atoresEmAtividade.removeIf(a -> !a.getNome().toLowerCase().contains(filtroNome.toLowerCase()));
         }
 
-        List<AtorEmAtividade> resultadoFiltrado = new ArrayList<>();
-
-        for(AtorEmAtividade a : atoresEmAtividade){
-            if(a.getNome().toLowerCase().contains(filtroNome.toLowerCase())){
-                resultadoFiltrado.add(a);
-            }
-        }
-
-        if(resultadoFiltrado.isEmpty()){
+        if(atoresEmAtividade.isEmpty()){
             throw new FiltroNaoEncontradoException(NomeEntidade.ATOR, filtroNome);
         }
-        return resultadoFiltrado;
+        return atoresEmAtividade;
     }
 
-    public Ator consultarAtor(Integer id) throws CampoNaoInformadoException, IdNaoEncontradoException {
+    public Ator consultarAtor(Integer id)
+            throws CampoNaoInformadoException, IdNaoEncontradoException {
+
         if(id == null){
             throw new CampoNaoInformadoException("id");
         }
@@ -108,7 +103,9 @@ public class AtorService {
         return resultado;
     }
 
-    public List<Ator> consultarAtores() throws CadastroNaoEncontradoException {
+    public List<Ator> consultarAtores()
+            throws CadastroNaoEncontradoException {
+
         List<Ator> atores = fakeDatabase.recuperaAtores();
         if(atores.isEmpty()){
             throw new CadastroNaoEncontradoException(NomeEntidade.ATOR);
@@ -117,11 +114,11 @@ public class AtorService {
         return atores;
     }
 
-    private Integer proximoAtorId(){
+    private Integer proximoId(){
         return fakeDatabase.recuperaAtores().size() + 1;
     }
 
-    private boolean nomeJaExiste(String nome){
+    private boolean nomeExiste(String nome){
         List<Ator> atores = fakeDatabase.recuperaAtores();
         for (Ator a : atores) {
             if(a.getNome().equals(nome))
@@ -129,5 +126,4 @@ public class AtorService {
         }
         return false;
     }
-
 }
