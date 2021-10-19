@@ -3,7 +3,8 @@ package br.com.cwi.reset.rogeriotrusz.enums;
 public enum NomeEntidade {
     ATOR("Ator", "Atores"),
     DIRETOR("Diretor", "Diretores"),
-    ESTUDIO("Estúdio", "Estúdios");
+    ESTUDIO("Estúdio", "Estúdios"),
+    PERSONAGEM_ATOR("Personagem", "Personagens");
 
     private String nome;
     private String plural;

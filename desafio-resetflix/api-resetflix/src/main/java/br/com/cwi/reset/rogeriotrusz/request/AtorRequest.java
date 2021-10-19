@@ -1,7 +1,6 @@
 package br.com.cwi.reset.rogeriotrusz.request;
 
 import br.com.cwi.reset.rogeriotrusz.enums.StatusCarreira;
-
 import java.time.LocalDate;
 
 public class AtorRequest {

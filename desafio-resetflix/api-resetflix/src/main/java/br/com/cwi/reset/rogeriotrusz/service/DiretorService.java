@@ -4,7 +4,6 @@ import br.com.cwi.reset.rogeriotrusz.FakeDatabase;
 import br.com.cwi.reset.rogeriotrusz.model.Diretor;
 import br.com.cwi.reset.rogeriotrusz.enums.NomeEntidade;
 import br.com.cwi.reset.rogeriotrusz.exception.*;
-import br.com.cwi.reset.rogeriotrusz.model.Estudio;
 import br.com.cwi.reset.rogeriotrusz.request.DiretorRequest;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -74,27 +73,6 @@ public class DiretorService {
         }
 
         return resultado;
-        /*List<Diretor> diretores = fakeDatabase.recuperaDiretores();
-        if(diretores.isEmpty()){
-            throw new CadastroNaoEncontradoException(NomeEntidade.DIRETOR);
-        }
-
-        if(filtroNome == null || filtroNome.isEmpty()){
-            return diretores;
-        }
-
-        List<Diretor> resultadoFiltrado = new ArrayList<>();
-
-        for(Diretor d : diretores){
-            if(d.getNome().toLowerCase().contains(filtroNome.toLowerCase())){
-                resultadoFiltrado.add(d);
-            }
-        }
-
-        if(resultadoFiltrado.isEmpty()){
-            throw new FiltroNaoEncontradoException(NomeEntidade.DIRETOR, filtroNome);
-        }
-        return resultadoFiltrado;*/
     }
 
     public Diretor consultarDiretor(Integer id)
