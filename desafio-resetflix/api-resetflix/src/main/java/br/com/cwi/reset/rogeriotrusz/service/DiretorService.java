@@ -1,8 +1,10 @@
-package br.com.cwi.reset.rogeriotrusz;
+package br.com.cwi.reset.rogeriotrusz.service;
 
-import br.com.cwi.reset.rogeriotrusz.domain.Diretor;
+import br.com.cwi.reset.rogeriotrusz.FakeDatabase;
+import br.com.cwi.reset.rogeriotrusz.model.Diretor;
 import br.com.cwi.reset.rogeriotrusz.enums.NomeEntidade;
 import br.com.cwi.reset.rogeriotrusz.exception.*;
+import br.com.cwi.reset.rogeriotrusz.request.DiretorRequest;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -51,7 +53,7 @@ public class DiretorService {
 
     public List<Diretor> listarDiretores() throws CadastroNaoEncontradoException {
         List<Diretor> diretores = fakeDatabase.recuperaDiretores();
-        if(diretores.size() < 1){
+        if(diretores.isEmpty()){
             throw new CadastroNaoEncontradoException(NomeEntidade.DIRETOR);
         }
         return diretores;
@@ -67,7 +69,7 @@ public class DiretorService {
             }
         }
 
-        if(resultadoFiltrado.size() < 1){
+        if(resultadoFiltrado.isEmpty()){
             throw new FiltroNaoEncontradoException(NomeEntidade.DIRETOR, filtroNome);
         }
         return resultadoFiltrado;

@@ -1,4 +1,4 @@
-package br.com.cwi.reset.rogeriotrusz.domain;
+package br.com.cwi.reset.rogeriotrusz.response;
 
 import java.time.LocalDate;
 
@@ -13,7 +13,15 @@ public class AtorEmAtividade {
         this.dataNascimento = dataNascimento;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public String getNome() {
         return nome;
+    }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
     }
 }

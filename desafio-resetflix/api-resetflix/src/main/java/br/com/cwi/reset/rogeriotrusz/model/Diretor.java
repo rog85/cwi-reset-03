@@ -1,4 +1,4 @@
-package br.com.cwi.reset.rogeriotrusz.domain;
+package br.com.cwi.reset.rogeriotrusz.model;
 
 import java.time.LocalDate;
 

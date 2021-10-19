@@ -1,11 +1,12 @@
-package br.com.cwi.reset.rogeriotrusz;
+package br.com.cwi.reset.rogeriotrusz.service;
 
-import br.com.cwi.reset.rogeriotrusz.domain.Ator;
-import br.com.cwi.reset.rogeriotrusz.domain.AtorEmAtividade;
+import br.com.cwi.reset.rogeriotrusz.request.AtorRequest;
+import br.com.cwi.reset.rogeriotrusz.FakeDatabase;
+import br.com.cwi.reset.rogeriotrusz.model.Ator;
+import br.com.cwi.reset.rogeriotrusz.response.AtorEmAtividade;
 import br.com.cwi.reset.rogeriotrusz.enums.NomeEntidade;
 import br.com.cwi.reset.rogeriotrusz.enums.StatusCarreira;
 import br.com.cwi.reset.rogeriotrusz.exception.*;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,26 +57,26 @@ public class AtorService {
         fakeDatabase.persisteAtor(ator);
     }
 
-    public List<AtorEmAtividade> listarAtoresEmAtividade() throws CadastroNaoEncontradoException {
+    public List<AtorEmAtividade> listarAtoresEmAtividade(String filtroNome) throws FiltroNaoEncontradoException, CadastroNaoEncontradoException {
         List<Ator> atores = fakeDatabase.recuperaAtores();
-        if(atores.size() < 1){
+        if(atores.isEmpty()){
             throw new CadastroNaoEncontradoException(NomeEntidade.ATOR);
         }
 
-        List<AtorEmAtividade> resultado = new ArrayList<>();
+        List<AtorEmAtividade> atoresEmAtividade = new ArrayList<>();
         AtorEmAtividade atorAtividade = null;
 
         for (Ator a : atores) {
             if(a.getStatusCarreira().equals(StatusCarreira.EM_ATIVIDADE)){
                 atorAtividade = new AtorEmAtividade(a.getId(), a.getNome(), a.getDataNascimento());
-                resultado.add(atorAtividade);
+                atoresEmAtividade.add(atorAtividade);
             }
         }
-        return resultado;
-    }
 
-    public List<AtorEmAtividade> listarAtoresEmAtividade(String filtroNome) throws FiltroNaoEncontradoException, CadastroNaoEncontradoException {
-        List<AtorEmAtividade> atoresEmAtividade = listarAtoresEmAtividade();
+        if(filtroNome == null || filtroNome.isEmpty()){
+            return atoresEmAtividade;
+        }
+
         List<AtorEmAtividade> resultadoFiltrado = new ArrayList<>();
 
         for(AtorEmAtividade a : atoresEmAtividade){
@@ -84,7 +85,7 @@ public class AtorService {
             }
         }
 
-        if(resultadoFiltrado.size() < 1){
+        if(resultadoFiltrado.isEmpty()){
             throw new FiltroNaoEncontradoException(NomeEntidade.ATOR, filtroNome);
         }
         return resultadoFiltrado;
@@ -109,7 +110,7 @@ public class AtorService {
 
     public List<Ator> consultarAtores() throws CadastroNaoEncontradoException {
         List<Ator> atores = fakeDatabase.recuperaAtores();
-        if(atores.size() < 1){
+        if(atores.isEmpty()){
             throw new CadastroNaoEncontradoException(NomeEntidade.ATOR);
         }
 
