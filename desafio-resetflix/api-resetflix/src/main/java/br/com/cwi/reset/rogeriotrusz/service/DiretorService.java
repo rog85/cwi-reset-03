@@ -51,16 +51,16 @@ public class DiretorService {
         fakeDatabase.persisteDiretor(diretor);
     }
 
-    public List<Diretor> listarDiretores() throws CadastroNaoEncontradoException {
+    public List<Diretor> listarDiretores(String filtroNome) throws FiltroNaoEncontradoException, CadastroNaoEncontradoException {
         List<Diretor> diretores = fakeDatabase.recuperaDiretores();
         if(diretores.isEmpty()){
             throw new CadastroNaoEncontradoException(NomeEntidade.DIRETOR);
         }
-        return diretores;
-    }
 
-    public List<Diretor> listarDiretores(String filtroNome) throws FiltroNaoEncontradoException, CadastroNaoEncontradoException {
-        List<Diretor> diretores = listarDiretores();
+        if(filtroNome == null || filtroNome.isEmpty()){
+            return diretores;
+        }
+
         List<Diretor> resultadoFiltrado = new ArrayList<>();
 
         for(Diretor d : diretores){

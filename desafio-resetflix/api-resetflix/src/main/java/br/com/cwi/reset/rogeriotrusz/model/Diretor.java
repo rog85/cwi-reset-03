@@ -23,4 +23,12 @@ public class Diretor {
     public String getNome() {
         return nome;
     }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public Integer getAnoInicioAtividade() {
+        return anoInicioAtividade;
+    }
 }
