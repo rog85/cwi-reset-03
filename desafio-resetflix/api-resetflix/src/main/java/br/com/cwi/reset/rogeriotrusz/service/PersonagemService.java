@@ -35,8 +35,13 @@ public class PersonagemService {
         if(nomePersonagem == null || nomePersonagem.isEmpty()){
             throw new CampoNaoInformadoException("nomePersonagem");
         }
+
         if(descricaoPersonagem == null || descricaoPersonagem.isEmpty()){
             throw new CampoNaoInformadoException("descricaoPersonagem");
+        }
+
+        if(tipoAtuacao == null){
+            throw new CampoNaoInformadoException("tipoAtuacao");
         }
 
         Integer id = proximoId();
@@ -71,9 +76,8 @@ public class PersonagemService {
 
     public void validaAtoresId(List<PersonagemRequest> personagens) throws CampoNaoInformadoException, IdNaoEncontradoException {
         AtorService atorService = new AtorService(fakeDatabase);
-        Ator ator;
         for (PersonagemRequest p : personagens){
-            ator = atorService.consultarAtor(p.getIdAtor());
+            atorService.consultarAtor(p.getIdAtor());
         }
     }
 

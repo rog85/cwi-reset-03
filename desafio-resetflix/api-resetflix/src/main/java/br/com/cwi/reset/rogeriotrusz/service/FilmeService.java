@@ -20,7 +20,7 @@ public class FilmeService {
 
     public void criarFilme(FilmeRequest filmeRequest)
             throws CampoNaoInformadoException, IdNaoEncontradoException,
-            GeneroDuplicadoException, AtorPersonagemDuplicadoException {
+            GeneroDuplicadoException, AtorPersonagemDuplicadoException, GeneroNaoInformadoException {
 
         String nome = filmeRequest.getNome();
         Integer anoLancamento = filmeRequest.getAnoLancamento();
@@ -43,14 +43,16 @@ public class FilmeService {
             throw new CampoNaoInformadoException("capaFilme");
         }
 
-        if(generos != null && !generos.isEmpty()){
-            List<Genero> listaGeneroAux = new ArrayList<>();
-            for(Genero g : generos){
-                if(!listaGeneroAux.contains(g)){
-                    listaGeneroAux.add(g);
-                } else{
-                    throw new GeneroDuplicadoException();
-                }
+        if(generos == null || generos.isEmpty()){
+            throw new GeneroNaoInformadoException();
+        }
+
+        List<Genero> listaGeneroAux = new ArrayList<>();
+        for(Genero g : generos){
+            if(!listaGeneroAux.contains(g)){
+                listaGeneroAux.add(g);
+            } else{
+                throw new GeneroDuplicadoException();
             }
         }
 
@@ -105,31 +107,25 @@ public class FilmeService {
 
         List<Filme> resultado = new ArrayList<>();
 
-        if(nomeFilme != null && !nomeFilme.isEmpty()){
-            for (Filme f : filmes){
-                if(f.getNome().toLowerCase().contains(nomeFilme.toLowerCase()) && !resultado.contains(f)){
+        for(Filme f : filmes){
+            if(!resultado.contains(f)) {
+                if(f.getNome().toLowerCase().contains(nomeFilme.toLowerCase())){
                     resultado.add(f);
+                    continue;
                 }
-            }
-        }
-
-        if(nomeDiretor != null && !nomeDiretor.isEmpty()){
-            for (Filme f : filmes){
-                if(f.getDiretor().getNome().toLowerCase().contains(nomeDiretor.toLowerCase()) && !resultado.contains(f)){
+                if(f.getDiretor().getNome().toLowerCase().contains(nomeDiretor.toLowerCase())){
                     resultado.add(f);
+                    continue;
                 }
-            }
-        }
-
-        if(nomePersonagem != null && !nomePersonagem.isEmpty()){
-            for (Filme f : filmes){
                 List<PersonagemAtor> personagens = f.getPersonagens();
                 for (PersonagemAtor p : personagens){
-                    if(p.getNomePersonagem().toLowerCase().contains(nomePersonagem.toLowerCase()) && !resultado.contains(f)){
+                    if(p.getNomePersonagem().toLowerCase().contains(nomePersonagem.toLowerCase())){
                         resultado.add(f);
+                        continue;
                     }
-                    if(p.getAtor().getNome().toLowerCase().contains(nomeAtor.toLowerCase()) && !resultado.contains(f)){
+                    if(p.getAtor().getNome().toLowerCase().contains(nomeAtor.toLowerCase())){
                         resultado.add(f);
+                        continue;
                     }
                 }
             }

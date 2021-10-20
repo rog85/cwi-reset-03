@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class FiltroNaoEncontradoException extends Exception{
     public FiltroNaoEncontradoException(NomeEntidade entidade, String filtro) {
-        super(String.format("%s não encontrato com o filtro '%s', favor informar outro filtro.",
+        super(String.format("%s não encontrado com o filtro '%s', favor informar outro filtro.",
                 entidade.getNome(true), filtro));
     }
 }
