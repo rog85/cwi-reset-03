@@ -7,7 +7,6 @@ import br.com.cwi.reset.rogeriotrusz.exception.*;
 import br.com.cwi.reset.rogeriotrusz.model.*;
 import br.com.cwi.reset.rogeriotrusz.request.FilmeRequest;
 import br.com.cwi.reset.rogeriotrusz.request.PersonagemRequest;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,11 +120,11 @@ public class FilmeService {
                 for (PersonagemAtor p : personagens){
                     if(p.getNomePersonagem().toLowerCase().contains(nomePersonagem.toLowerCase())){
                         resultado.add(f);
-                        continue;
+                        break;
                     }
                     if(p.getAtor().getNome().toLowerCase().contains(nomeAtor.toLowerCase())){
                         resultado.add(f);
-                        continue;
+                        break;
                     }
                 }
             }
