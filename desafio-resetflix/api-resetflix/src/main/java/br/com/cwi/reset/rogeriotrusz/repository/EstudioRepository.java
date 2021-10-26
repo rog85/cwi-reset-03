@@ -9,6 +9,8 @@ import java.util.List;
 @Repository
 public interface EstudioRepository extends CrudRepository<Estudio, Integer> {
     List<Estudio> findAll();
+
     boolean existsByNomeEqualsIgnoreCase(String nome);
+
     List<Estudio> findByNomeContainingIgnoreCase(String nome);
 }

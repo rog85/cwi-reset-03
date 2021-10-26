@@ -1,6 +1,7 @@
 package br.com.cwi.reset.rogeriotrusz.model;
 
 import br.com.cwi.reset.rogeriotrusz.enums.Genero;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;

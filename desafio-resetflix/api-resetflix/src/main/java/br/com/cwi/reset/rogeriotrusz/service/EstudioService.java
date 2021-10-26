@@ -24,7 +24,7 @@ public class EstudioService {
         LocalDate dataCriacao = estudioRequest.getDataCriacao();
         StatusAtividade statusAtividade = estudioRequest.getStatusAtividade();
 
-        if(repository.existsByNomeEqualsIgnoreCase(nome)){
+        if (repository.existsByNomeEqualsIgnoreCase(nome)) {
             throw new NomeJaCadastradoException(NomeEntidade.ESTUDIO, nome);
         }
 
@@ -37,14 +37,14 @@ public class EstudioService {
 
         List<Estudio> estudios;
 
-        if(filtroNome == null || filtroNome.isEmpty()){
+        if (filtroNome == null || filtroNome.isEmpty()) {
             estudios = repository.findAll();
-            if(estudios.isEmpty()){
+            if (estudios.isEmpty()) {
                 throw new CadastroNaoEncontradoException(NomeEntidade.ESTUDIO);
             }
         } else {
             estudios = repository.findByNomeContainingIgnoreCase(filtroNome);
-            if(estudios.isEmpty()){
+            if (estudios.isEmpty()) {
                 throw new FiltroNaoEncontradoException(NomeEntidade.ESTUDIO, filtroNome);
             }
         }
@@ -53,11 +53,11 @@ public class EstudioService {
 
     public Estudio consultarEstudio(Integer id)
             throws CampoNaoInformadoException, IdNaoEncontradoException {
-        if(id == null){
+        if (id == null) {
             throw new CampoNaoInformadoException("id");
         }
         Estudio estudio = repository.findById(id).orElse(null);
-        if(estudio == null){
+        if (estudio == null) {
             throw new IdNaoEncontradoException(NomeEntidade.ESTUDIO, id);
         }
         return estudio;

@@ -26,10 +26,10 @@ public class AtorService {
         StatusCarreira statusCarreira = atorRequest.getStatusCarreira();
         Integer anoInicioAtividade = atorRequest.getAnoInicioAtividade();
 
-        if(repository.existsByNomeEqualsIgnoreCase(nome)){
+        if (repository.existsByNomeEqualsIgnoreCase(nome)) {
             throw new NomeJaCadastradoException(NomeEntidade.ATOR, nome);
         }
-        if(anoInicioAtividade < dataNascimento.getYear()){
+        if (anoInicioAtividade < dataNascimento.getYear()) {
             throw new AnoInvalidoException(NomeEntidade.ATOR);
         }
 
@@ -41,14 +41,14 @@ public class AtorService {
             throws FiltroNaoEncontradoException, CadastroNaoEncontradoException {
 
         List<Ator> atores;
-        if(filtroNome == null || filtroNome.isEmpty()){
+        if (filtroNome == null || filtroNome.isEmpty()) {
             atores = repository.findByStatusCarreira(StatusCarreira.EM_ATIVIDADE);
-            if(atores.isEmpty()){
+            if (atores.isEmpty()) {
                 throw new CadastroNaoEncontradoException(NomeEntidade.ATOR);
             }
         } else {
             atores = repository.findByStatusCarreiraAndNomeContainingIgnoreCase(StatusCarreira.EM_ATIVIDADE, filtroNome);
-            if(atores.isEmpty()){
+            if (atores.isEmpty()) {
                 throw new FiltroNaoEncontradoException(NomeEntidade.ATOR, filtroNome);
             }
         }
@@ -63,11 +63,11 @@ public class AtorService {
     }
 
     public Ator consultarAtor(Integer id) throws IdNaoEncontradoException, CampoNaoInformadoException {
-        if(id == null){
+        if (id == null) {
             throw new CampoNaoInformadoException("id");
         }
         Ator ator = repository.findById(id).orElse(null);
-        if(ator == null){
+        if (ator == null) {
             throw new IdNaoEncontradoException(NomeEntidade.ATOR, id);
         }
         return ator;
@@ -75,7 +75,7 @@ public class AtorService {
 
     public List<Ator> consultarAtores() throws CadastroNaoEncontradoException {
         List<Ator> atores = repository.findAll();
-        if(atores.isEmpty()){
+        if (atores.isEmpty()) {
             throw new CadastroNaoEncontradoException(NomeEntidade.ATOR);
         }
         return atores;

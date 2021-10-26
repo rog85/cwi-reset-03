@@ -1,6 +1,7 @@
 package br.com.cwi.reset.rogeriotrusz.model;
 
 import br.com.cwi.reset.rogeriotrusz.enums.StatusAtividade;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;

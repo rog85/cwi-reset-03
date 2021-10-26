@@ -17,15 +17,15 @@ public class DiretorService {
     @Autowired
     private DiretorRepository repository;
 
-    public void cadastrarDiretor(DiretorRequest diretorRequest) throws NomeJaCadastradoException,  AnoInvalidoException {
+    public void cadastrarDiretor(DiretorRequest diretorRequest) throws NomeJaCadastradoException, AnoInvalidoException {
         String nome = diretorRequest.getNome();
         LocalDate dataNascimento = diretorRequest.getDataNascimento();
         Integer anoInicioAtividade = diretorRequest.getAnoInicioAtividade();
 
-        if(repository.existsByNomeEqualsIgnoreCase(nome)){
+        if (repository.existsByNomeEqualsIgnoreCase(nome)) {
             throw new NomeJaCadastradoException(NomeEntidade.DIRETOR, nome);
         }
-        if(anoInicioAtividade < dataNascimento.getYear()){
+        if (anoInicioAtividade < dataNascimento.getYear()) {
             throw new AnoInvalidoException(NomeEntidade.DIRETOR);
         }
 
@@ -37,14 +37,14 @@ public class DiretorService {
             throws FiltroNaoEncontradoException, CadastroNaoEncontradoException {
 
         List<Diretor> diretores;
-        if(filtroNome == null || filtroNome.isEmpty()){
+        if (filtroNome == null || filtroNome.isEmpty()) {
             diretores = repository.findAll();
-            if(diretores.isEmpty()){
+            if (diretores.isEmpty()) {
                 throw new CadastroNaoEncontradoException(NomeEntidade.DIRETOR);
             }
         } else {
             diretores = repository.findByNomeContainingIgnoreCase(filtroNome);
-            if(diretores.isEmpty()){
+            if (diretores.isEmpty()) {
                 throw new FiltroNaoEncontradoException(NomeEntidade.DIRETOR, filtroNome);
             }
         }
@@ -52,11 +52,11 @@ public class DiretorService {
     }
 
     public Diretor consultarDiretor(Integer id) throws CampoNaoInformadoException, IdNaoEncontradoException {
-        if(id == null){
+        if (id == null) {
             throw new CampoNaoInformadoException("id");
         }
         Diretor diretor = repository.findById(id).orElse(null);
-        if(diretor == null){
+        if (diretor == null) {
             throw new IdNaoEncontradoException(NomeEntidade.DIRETOR, id);
         }
         return diretor;
