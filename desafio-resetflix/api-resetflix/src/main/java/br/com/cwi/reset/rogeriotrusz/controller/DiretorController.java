@@ -1,37 +1,35 @@
 package br.com.cwi.reset.rogeriotrusz.controller;
 
-import br.com.cwi.reset.rogeriotrusz.FakeDatabase;
 import br.com.cwi.reset.rogeriotrusz.model.Diretor;
 import br.com.cwi.reset.rogeriotrusz.request.DiretorRequest;
 import br.com.cwi.reset.rogeriotrusz.service.DiretorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/diretores")
 public class DiretorController {
 
-    private DiretorService diretorService;
-
-    public DiretorController() {
-        this.diretorService = new DiretorService(FakeDatabase.getInstance());
-    }
+    @Autowired
+    private DiretorService service;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void cadastrarDiretor(@RequestBody DiretorRequest diretorRequest) throws Exception {
-        diretorService.cadastrarDiretor(diretorRequest);
+    public void cadastrarDiretor(@RequestBody @Valid DiretorRequest diretorRequest) throws Exception {
+        service.cadastrarDiretor(diretorRequest);
     }
 
     @GetMapping
     public List<Diretor> listarDiretores(@RequestParam String filtroNome) throws Exception {
-        return diretorService.listarDiretores(filtroNome);
+        return service.listarDiretores(filtroNome);
     }
 
     @GetMapping("/{id}")
     public Diretor consultarDiretor(@PathVariable Integer id) throws Exception{
-        return diretorService.consultarDiretor(id);
+        return service.consultarDiretor(id);
     }
 }

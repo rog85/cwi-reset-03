@@ -21,7 +21,7 @@ public class FilmeService {
             throws CampoNaoInformadoException, IdNaoEncontradoException,
             GeneroDuplicadoException, AtorPersonagemDuplicadoException, GeneroNaoInformadoException {
 
-        String nome = filmeRequest.getNome();
+        /*String nome = filmeRequest.getNome();
         Integer anoLancamento = filmeRequest.getAnoLancamento();
         String capaFilme = filmeRequest.getCapaFilme();
         List<Genero> generos = filmeRequest.getGeneros();
@@ -91,9 +91,9 @@ public class FilmeService {
             personagensAtores.add(personagemAtor);
         }
 
-        Integer id = proximoId();
-        Filme filme = new Filme(id, nome, anoLancamento, capaFilme, generos, diretor, estudio, personagensAtores, resumo);
-        fakeDatabase.persisteFilme(filme);
+        //Integer id = proximoId();
+        Filme filme = new Filme(nome, anoLancamento, capaFilme, generos, estudio, diretor, personagensAtores, resumo);
+        fakeDatabase.persisteFilme(filme);*/
     }
 
     public List<Filme> consultarFilmes(String nomeFilme, String nomeDiretor,

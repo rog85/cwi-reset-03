@@ -46,8 +46,8 @@ public class EstudioService {
             throw new CampoNaoInformadoException("statusAtividade");
         }
 
-        Integer id = proximoId();
-        Estudio estudio = new Estudio(id, nome, descricao, dataCriacao, statusAtividade);
+        //Integer id = proximoId();
+        Estudio estudio = new Estudio(nome, descricao, dataCriacao, statusAtividade);
         fakeDatabase.persisteEstudio(estudio);
     }
 

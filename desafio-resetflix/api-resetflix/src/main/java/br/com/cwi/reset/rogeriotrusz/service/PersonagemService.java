@@ -21,7 +21,7 @@ public class PersonagemService {
     public int criarPersonagem(PersonagemRequest personagemRequest)
             throws CampoNaoInformadoException, IdNaoEncontradoException {
 
-        Integer idAtor = personagemRequest.getIdAtor();
+        /*Integer idAtor = personagemRequest.getIdAtor();
         String nomePersonagem = personagemRequest.getNomePersonagem();
         String descricaoPersonagem = personagemRequest.getDescricaoPersonagem();
         TipoAtuacao tipoAtuacao = personagemRequest.getTipoAtuacao();
@@ -44,11 +44,11 @@ public class PersonagemService {
             throw new CampoNaoInformadoException("tipoAtuacao");
         }
 
-        Integer id = proximoId();
-        PersonagemAtor personagemAtor = new PersonagemAtor(id, ator, nomePersonagem, descricaoPersonagem, tipoAtuacao);
-        fakeDatabase.persistePersonagem(personagemAtor);
+        //Integer id = proximoId();
+        PersonagemAtor personagemAtor = new PersonagemAtor(ator, nomePersonagem, descricaoPersonagem, tipoAtuacao);
+        fakeDatabase.persistePersonagem(personagemAtor);*/
 
-        return id;
+        return 0;
     }
 
     public PersonagemAtor consultarPersonagem(Integer id)
@@ -75,10 +75,10 @@ public class PersonagemService {
     }
 
     public void validaAtoresId(List<PersonagemRequest> personagens) throws CampoNaoInformadoException, IdNaoEncontradoException {
-        AtorService atorService = new AtorService(fakeDatabase);
+        /*AtorService atorService = new AtorService(fakeDatabase);
         for (PersonagemRequest p : personagens){
             atorService.consultarAtor(p.getIdAtor());
-        }
+        }*/
     }
 
 }
