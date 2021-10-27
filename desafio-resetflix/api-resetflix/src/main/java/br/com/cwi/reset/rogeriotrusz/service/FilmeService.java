@@ -71,6 +71,8 @@ public class FilmeService {
             throw new CadastroNaoEncontradoException(NomeEntidade.FILME);
         }
 
+        //List<Filme> filtrado = repository.findByPersonagensNomePersonagemContainingIgnoreCase(nomePersonagem);
+
         List<Filme> resultado = new ArrayList<>();
         List<PersonagemAtor> personagens;
 

@@ -49,4 +49,8 @@ public class PersonagemAtorService {
             }
         }
     }
+
+    public boolean atorPossuiVinculoPersonagem(Ator ator) {
+        return repository.existsByAtorId(ator.getId());
+    }
 }

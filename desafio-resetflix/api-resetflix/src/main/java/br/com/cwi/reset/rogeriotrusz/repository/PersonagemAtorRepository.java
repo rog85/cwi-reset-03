@@ -9,4 +9,7 @@ import java.util.List;
 @Repository
 public interface PersonagemAtorRepository extends CrudRepository<PersonagemAtor, Integer> {
     //List<PersonagemAtor> findByNomePersonagem(String nomePersonagem);
+
+
+    boolean existsByAtorId(Integer id);
 }

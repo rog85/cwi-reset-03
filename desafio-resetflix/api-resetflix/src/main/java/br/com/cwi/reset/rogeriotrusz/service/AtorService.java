@@ -19,6 +19,8 @@ public class AtorService {
 
     @Autowired
     private AtorRepository repository;
+    @Autowired
+    private PersonagemAtorService personagemAtorService;
 
     public void criarAtor(AtorRequest atorRequest) throws AnoInvalidoException, NomeJaCadastradoException {
         String nome = atorRequest.getNome();
@@ -79,5 +81,39 @@ public class AtorService {
             throw new CadastroNaoEncontradoException(NomeEntidade.ATOR);
         }
         return atores;
+    }
+
+    public void atualizarAtor(Integer id, AtorRequest atorRequest)
+            throws IdNaoEncontradoException, NomeJaCadastradoException {
+        Ator ator = repository.findById(id).orElse(null);
+        if(ator == null){
+            throw new IdNaoEncontradoException(NomeEntidade.ATOR, id);
+        }
+        if(repository.existsByNomeEqualsIgnoreCase(atorRequest.getNome()) &&
+            !ator.getNome().equalsIgnoreCase(atorRequest.getNome())){
+
+            throw new NomeJaCadastradoException(NomeEntidade.ATOR, atorRequest.getNome());
+        }
+
+        ator.setNome(atorRequest.getNome());
+        ator.setDataNascimento(atorRequest.getDataNascimento());
+        ator.setStatusCarreira(atorRequest.getStatusCarreira());
+        ator.setAnoInicioAtividade(atorRequest.getAnoInicioAtividade());
+        repository.save(ator);
+    }
+
+    public void removerAtor(Integer id) throws CampoNaoInformadoException, IdNaoEncontradoException, AtorVinculadoException {
+        if(id == null){
+            throw new CampoNaoInformadoException("id");
+        }
+        Ator ator = repository.findById(id).orElse(null);
+        if(ator == null){
+            throw new IdNaoEncontradoException(NomeEntidade.ATOR, id);
+        }
+        if(personagemAtorService.atorPossuiVinculoPersonagem(ator)){
+            throw new AtorVinculadoException();
+        }
+
+        repository.delete(ator);
     }
 }

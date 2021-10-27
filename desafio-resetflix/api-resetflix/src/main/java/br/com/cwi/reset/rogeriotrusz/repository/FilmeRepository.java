@@ -14,4 +14,5 @@ public interface FilmeRepository extends CrudRepository<Filme, Integer> {
 
     //List<Filme> findByDiretorContainingIgnoreCase(String diretor);
 
+    //List<Filme> findByPersonagensNomePersonagemContainingIgnoreCase(String nomePersonagem);
 }

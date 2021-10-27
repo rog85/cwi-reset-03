@@ -25,7 +25,7 @@ public class Filme {
     @JoinColumn(name = "id_diretor")
     private Diretor diretor;
     @OneToMany
-    @JoinColumn(name = "id_personagem_ator")
+    @JoinColumn(name = "id_filme")
     private List<PersonagemAtor> personagens;
     private String resumo;
 
