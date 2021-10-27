@@ -76,14 +76,14 @@ public class FilmeService {
         List<Filme> resultado = new ArrayList<>();
         List<PersonagemAtor> personagens;
 
-        for(Filme f : filmes){
+        for (Filme f : filmes) {
             if (f.getNome().toLowerCase().contains(nomeFilme.toLowerCase()) &&
                     f.getDiretor().getNome().toLowerCase().contains(nomeDiretor.toLowerCase())) {
 
                 personagens = f.getPersonagens();
                 for (PersonagemAtor p : personagens) {
                     if (p.getNomePersonagem().toLowerCase().contains(nomePersonagem.toLowerCase()) &&
-                            p.getNomePersonagem().toLowerCase().contains(nomePersonagem.toLowerCase())){
+                            p.getNomePersonagem().toLowerCase().contains(nomePersonagem.toLowerCase())) {
 
                         resultado.add(f);
                         break;
@@ -95,5 +95,9 @@ public class FilmeService {
             throw new FilmeNaoEncontradoException(nomeFilme, nomeDiretor, nomePersonagem, nomeAtor);
         }
         return resultado;
+    }
+
+    public boolean diretorPossuiVinculoFilme(Diretor diretor) {
+        return repository.existsByDiretor(diretor);
     }
 }

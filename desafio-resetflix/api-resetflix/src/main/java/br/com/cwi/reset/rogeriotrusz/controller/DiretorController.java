@@ -1,6 +1,7 @@
 package br.com.cwi.reset.rogeriotrusz.controller;
 
 import br.com.cwi.reset.rogeriotrusz.model.Diretor;
+import br.com.cwi.reset.rogeriotrusz.request.AtorRequest;
 import br.com.cwi.reset.rogeriotrusz.request.DiretorRequest;
 import br.com.cwi.reset.rogeriotrusz.service.DiretorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,15 @@ public class DiretorController {
     @GetMapping("/{id}")
     public Diretor consultarDiretor(@PathVariable Integer id) throws Exception{
         return service.consultarDiretor(id);
+    }
+
+    @PutMapping("/{id}")
+    public void atualizarDiretor(@PathVariable Integer id, @RequestBody @Valid DiretorRequest diretorRequest) throws Exception{
+        service.atualizarDiretor(id, diretorRequest);
+    }
+
+    @DeleteMapping("/{id}")
+    public void removerDiretores(@PathVariable Integer id) throws Exception{
+        service.removerDiretores(id);
     }
 }

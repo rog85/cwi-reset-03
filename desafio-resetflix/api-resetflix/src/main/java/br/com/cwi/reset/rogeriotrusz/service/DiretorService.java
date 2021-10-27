@@ -16,6 +16,8 @@ public class DiretorService {
 
     @Autowired
     private DiretorRepository repository;
+    @Autowired
+    private FilmeService filmeService;
 
     public void cadastrarDiretor(DiretorRequest diretorRequest) throws NomeJaCadastradoException, AnoInvalidoException {
         String nome = diretorRequest.getNome();
@@ -60,5 +62,39 @@ public class DiretorService {
             throw new IdNaoEncontradoException(NomeEntidade.DIRETOR, id);
         }
         return diretor;
+    }
+
+    public void atualizarDiretor(Integer id, DiretorRequest diretorRequest) throws IdNaoEncontradoException, NomeJaCadastradoException, CampoNaoInformadoException {
+        if(id == null){
+            throw new CampoNaoInformadoException("id");
+        }
+        Diretor diretor = repository.findById(id).orElse(null);
+        if (diretor == null) {
+            throw new IdNaoEncontradoException(NomeEntidade.DIRETOR, id);
+        }
+        if (repository.existsByNomeEqualsIgnoreCase(diretorRequest.getNome()) &&
+                !diretor.getNome().equalsIgnoreCase(diretorRequest.getNome())) {
+
+            throw new NomeJaCadastradoException(NomeEntidade.DIRETOR, diretorRequest.getNome());
+        }
+
+        diretor.setNome(diretorRequest.getNome());
+        diretor.setDataNascimento(diretorRequest.getDataNascimento());
+        diretor.setAnoInicioAtividade(diretorRequest.getAnoInicioAtividade());
+        repository.save(diretor);
+    }
+
+    public void removerDiretores(Integer id) throws CampoNaoInformadoException, IdNaoEncontradoException, DiretorVinculadoException {
+        if(id == null){
+            throw new CampoNaoInformadoException("id");
+        }
+        Diretor diretor = repository.findById(id).orElse(null);
+        if(diretor == null){
+            throw new IdNaoEncontradoException(NomeEntidade.DIRETOR, id);
+        }
+        if(filmeService.diretorPossuiVinculoFilme(diretor)){
+            throw new DiretorVinculadoException();
+        }
+        repository.delete(diretor);
     }
 }

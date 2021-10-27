@@ -83,8 +83,11 @@ public class AtorService {
         return atores;
     }
 
-    public void atualizarAtor(Integer id, AtorRequest atorRequest)
-            throws IdNaoEncontradoException, NomeJaCadastradoException {
+    public void atualizarAtor(Integer id, AtorRequest atorRequest) throws IdNaoEncontradoException, NomeJaCadastradoException, CampoNaoInformadoException {
+        if(id == null){
+            throw new CampoNaoInformadoException("id");
+        }
+
         Ator ator = repository.findById(id).orElse(null);
         if(ator == null){
             throw new IdNaoEncontradoException(NomeEntidade.ATOR, id);
