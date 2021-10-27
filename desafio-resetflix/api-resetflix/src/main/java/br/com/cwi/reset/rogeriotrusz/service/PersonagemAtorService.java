@@ -53,4 +53,8 @@ public class PersonagemAtorService {
     public boolean atorPossuiVinculoPersonagem(Ator ator) {
         return repository.existsByAtorId(ator.getId());
     }
+
+    public void removerPersonagem(PersonagemAtor personagemAtor){
+        repository.delete(personagemAtor);
+    }
 }

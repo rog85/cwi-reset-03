@@ -97,6 +97,22 @@ public class FilmeService {
         return resultado;
     }
 
+    public void removerFilme(Integer id) throws CampoNaoInformadoException, IdNaoEncontradoException {
+        if(id == null){
+            throw new CampoNaoInformadoException("id");
+        }
+        Filme filme = repository.findById(id).orElse(null);
+        if(filme == null){
+            throw new IdNaoEncontradoException(NomeEntidade.FILME, id);
+        }
+
+        for (PersonagemAtor p : filme.getPersonagens()){
+            personagemAtorService.removerPersonagem(p);
+        }
+
+        repository.delete(filme);
+    }
+
     public boolean diretorPossuiVinculoFilme(Diretor diretor) {
         return repository.existsByDiretor(diretor);
     }
